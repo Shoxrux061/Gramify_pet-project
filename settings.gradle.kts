@@ -23,3 +23,4 @@ rootProject.name = "Gramify_pet-project"
 include(":app")
 include(":core")
 include(":core")
+include(":auth")

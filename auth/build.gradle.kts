@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "uz.shoxrux.core"
+    namespace = "uz.shoxrux.auth"
     compileSdk = 35
 
     defaultConfig {
@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -62,11 +63,21 @@ dependencies {
     api(libs.kotlinx.serialization.json)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Firebase
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
+    //Coil
+    implementation(libs.coil.compose)
+
+    //ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     //Dagger Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    //Masked Edit Text
+    implementation(libs.compose.input.mask)
+
+    //Firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+
 }

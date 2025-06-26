@@ -3,14 +3,12 @@ package uz.shoxrux.gramify
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import uz.shoxrux.core.ui.theme.LocalAppColors
@@ -24,6 +22,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+
+            enableEdgeToEdge()
+
             Gramify_petprojectTheme {
 
                 val colors = LocalAppColors.current
@@ -35,11 +36,10 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(colors.background)
                 ) { paddingValues ->
-
-                    Text("Hello world!", style = typography.headlineMedium)
-                    /*  AppNavHost(paddingValues)*/
+                    AppNavHost(paddingValues)
                 }
             }
+
         }
     }
 }
