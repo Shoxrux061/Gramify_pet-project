@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import uz.shoxrux.core.ui.theme.AppColor
 import uz.shoxrux.core.ui.theme.AppTypography
@@ -24,7 +23,7 @@ import uz.shoxrux.core.ui.theme.LocalAppTypography
 import uz.shoxrux.gramify.R
 
 private val DarkColorScheme = AppColor(
-    background = Color(0xFF0A0E0F),
+    background = Color(0xFF161A1A),
     brandPrimary = Color(0xFF006175),
     brandSecondary = Color(0xFF1A2B2D),
     brandTertiary = Color(0xFF66B9BA),
@@ -38,8 +37,11 @@ private val DarkColorScheme = AppColor(
     divider = Color(0x40383838),
     semiTransparent = Color(0x4DFFFFFF),
     textTitle = Color(0xFFD4FBFF),
-    textHeadline = Color(0xFFF0FBFC),
-    textBody = Color(0xFFFCFFFF)
+    textHeadline = Color(0xFF66B9BA),
+    textBody = Color(0xFFFCFFFF),
+    error1 = Color(0xFFFF4046),
+    error2 = Color(0xFFFF8E8E),
+    buttonText = Color(0xFF00BCD4)
 )
 
 private val LightColorScheme = AppColor(
@@ -57,8 +59,11 @@ private val LightColorScheme = AppColor(
     divider = Color(0x20666666),
     semiTransparent = Color(0x4D000000),
     textTitle = Color(0xFF151F1F),
-    textHeadline = Color(0xFF091A1C),
-    textBody = Color(0xFF0A1111)
+    textHeadline = Color(0xFF006175),
+    textBody = Color(0xFF0A1111),
+    error1 = Color(0xFFFF4046),
+    error2 = Color(0xFFFF8E8E),
+    buttonText = Color(0xFF00BCD4)
 )
 
 
@@ -84,19 +89,19 @@ fun Gramify_petprojectTheme(
 
     val appTypography = AppTypography(
         headlineLarge = TextStyle(
-            fontSize = 24.sp,
+            fontSize = 32.sp,
             color = appColors.textHeadline,
-            fontFamily = FontFamily(Font(R.font.nunito_medium))
+            fontFamily = FontFamily(Font(R.font.nunito_bold))
         ),
         headlineMedium = TextStyle(
-            fontSize = 20.sp,
+            fontSize = 28.sp,
             color = appColors.textHeadline,
-            fontFamily = FontFamily(Font(R.font.nunito_medium))
+            fontFamily = FontFamily(Font(R.font.nunito_bold))
         ),
         headlineSmall = TextStyle(
-            fontSize = 16.sp,
+            fontSize = 24.sp,
             color = appColors.textHeadline,
-            fontFamily = FontFamily(Font(R.font.nunito_medium))
+            fontFamily = FontFamily(Font(R.font.nunito_bold))
         ),
 
         titleLarge = TextStyle(
@@ -137,6 +142,31 @@ fun Gramify_petprojectTheme(
         textButton = TextStyle(
             fontSize = 18.sp,
             color = appColors.brandTertiary,
+            fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
+        ),
+        textButtonSmall = TextStyle(
+            fontSize = 14.sp,
+            color = appColors.brandTertiary,
+            fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
+        ),
+        buttonText = TextStyle(
+            fontSize = 16.sp,
+            color = appColors.white,
+            fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
+        ),
+        headerLarge = TextStyle(
+            fontSize = 28.sp,
+            color = appColors.textTitle,
+            fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
+        ),
+        headerMedium = TextStyle(
+            fontSize = 24.sp,
+            color = appColors.textTitle,
+            fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
+        ),
+        headerSmall = TextStyle(
+            fontSize = 20.sp,
+            color = appColors.textTitle,
             fontFamily = FontFamily(Font(R.font.nunito_semi_bold))
         )
 

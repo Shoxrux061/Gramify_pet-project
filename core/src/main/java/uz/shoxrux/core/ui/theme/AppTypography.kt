@@ -10,6 +10,11 @@ data class AppTypography(
     val headlineSmall: TextStyle,
 
     val textButton: TextStyle,
+    val textButtonSmall: TextStyle,
+
+    val headerLarge: TextStyle,
+    val headerMedium: TextStyle,
+    val headerSmall: TextStyle,
 
     val bodyLarge: TextStyle,
     val bodyMedium: TextStyle,
@@ -19,7 +24,9 @@ data class AppTypography(
 
     val titleLarge: TextStyle,
     val titleMedium: TextStyle,
-    val titleSmall: TextStyle
+    val titleSmall: TextStyle,
+
+    val buttonText: TextStyle
 
 )
 
