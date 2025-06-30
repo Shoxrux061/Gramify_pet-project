@@ -13,10 +13,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
+import uz.shoxrux.core.ui.theme.Gramify_petprojectTheme
 import uz.shoxrux.core.ui.theme.LocalAppColors
 import uz.shoxrux.core.ui.theme.LocalAppTypography
 import uz.shoxrux.gramify.ui.navHost.AppNavHost
-import uz.shoxrux.gramify.ui.theme.Gramify_petprojectTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

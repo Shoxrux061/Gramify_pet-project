@@ -1,4 +1,4 @@
-package uz.shoxrux.gramify.ui.theme
+package uz.shoxrux.core.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -16,11 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import uz.shoxrux.core.ui.theme.AppColor
-import uz.shoxrux.core.ui.theme.AppTypography
-import uz.shoxrux.core.ui.theme.LocalAppColors
-import uz.shoxrux.core.ui.theme.LocalAppTypography
-import uz.shoxrux.gramify.R
+import uz.shoxrux.core.R
 
 private val DarkColorScheme = AppColor(
     background = Color(0xFF161A1A),
@@ -43,8 +39,7 @@ private val DarkColorScheme = AppColor(
     error2 = Color(0xFFFF8E8E),
     buttonText = Color(0xFF00BCD4)
 )
-
-private val LightColorScheme = AppColor(
+ val LightColorScheme = AppColor(
     background = Color(0xFFFFFFFF),
     brandPrimary = Color(0xFF006175),
     brandSecondary = Color(0xFFD2F1F3),

@@ -97,8 +97,8 @@ fun AppTextField(
 @Composable
 fun AppButton(onClick: () -> Unit, text: String, modifier: Modifier = Modifier) {
 
-    val colors = LocalAppColors.current
     val typography = LocalAppTypography.current
+    val colors = LocalAppColors.current
 
     Button(
         modifier = modifier
