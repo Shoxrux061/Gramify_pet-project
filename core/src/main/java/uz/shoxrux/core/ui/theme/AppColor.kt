@@ -19,7 +19,10 @@ data class AppColor(
     val divider: Color,
     val textHeadline: Color,
     val textTitle: Color,
-    val textBody: Color
+    val textBody: Color,
+    val error1: Color,
+    val error2: Color,
+    val buttonText: Color
 )
 
 val LocalAppColors = staticCompositionLocalOf<AppColor> {
