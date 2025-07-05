@@ -33,9 +33,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(colors.background)
                 ) { paddingValues ->
-
-                    Text("Hello world!", style = typography.headlineMedium)
-                      AppNavHost(paddingValues)
+                    AppNavHost(paddingValues)
                 }
             }
         }
