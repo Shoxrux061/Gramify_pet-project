@@ -3,7 +3,6 @@ package uz.shoxrux.main.presentation.screens.main.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,21 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import uz.shoxrux.core.ui.theme.LocalAppColors
 import uz.shoxrux.core.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePage() {
-    val viewModel = hiltViewModel<HomeViewModel>()
+fun HomePage(viewModel: HomeViewModel) {
     val posts = viewModel.posts.collectAsState().value
     val error = viewModel.error.collectAsState().value
     val colors = LocalAppColors.current

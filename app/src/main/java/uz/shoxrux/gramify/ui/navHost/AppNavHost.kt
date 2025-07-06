@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import uz.shoxrux.core.ui.theme.LocalAppColors
+import uz.shoxrux.core.utils.constants.NavRoutes
+import uz.shoxrux.main.presentation.screens.main.MainScreen
 import uz.shoxrux.main.presentation.screens.main.home.HomePage
 
 @Composable
@@ -17,18 +19,14 @@ fun AppNavHost(paddingValues: PaddingValues) {
     val navController = rememberNavController()
 
     NavHost(
-        startDestination = "main",
+        startDestination = NavRoutes.MAIN_SCREEN,
         navController = navController,
         modifier = Modifier
             .background(LocalAppColors.current.background)
-            .padding(paddingValues)
-        ,
-
-        ) {
-        composable("main") {
-            HomePage()
+    ) {
+        composable(NavRoutes.MAIN_SCREEN) {
+            MainScreen()
         }
 
     }
-
 }
