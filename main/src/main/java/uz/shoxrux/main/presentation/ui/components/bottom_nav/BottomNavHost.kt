@@ -15,17 +15,21 @@ import androidx.navigation.compose.composable
 import uz.shoxrux.core.utils.constants.NavRoutes
 import uz.shoxrux.main.presentation.screens.main.home.HomePage
 import uz.shoxrux.main.presentation.screens.main.home.HomeViewModel
+import uz.shoxrux.main.presentation.screens.main.reels.ReelsPage
+import uz.shoxrux.main.presentation.screens.main.reels.ReelsViewModel
 
 @Composable
 fun BottomNavHost(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    reelsViewModel: ReelsViewModel
 ) {
 
     NavHost(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(bottom = paddingValues.calculateBottomPadding()),
         navController = navController,
         startDestination = NavRoutes.ITEM_HOME_PAGE,
         enterTransition = {
@@ -46,7 +50,7 @@ fun BottomNavHost(
             Text("Chat")
         }
         composable(NavRoutes.ITEM_REELS_PAGE) {
-            Text("Reels")
+            ReelsPage(reelsViewModel)
         }
         composable(NavRoutes.ITEM_POST_PAGE) {
             Text("Post")
