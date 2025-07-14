@@ -6,9 +6,16 @@ plugins {
     alias(libs.plugins.android.junit)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.compose.compiler)
+
 }
 
 android {
+
+    buildFeatures {
+        compose = true
+    }
+
     namespace = "uz.shoxrux.core"
     compileSdk = 35
 
