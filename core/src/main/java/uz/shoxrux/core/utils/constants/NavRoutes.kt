@@ -9,5 +9,6 @@ object NavRoutes {
     const val ITEM_PROFILE_PAGE = "profile_page_item"
 
     const val MAIN_SCREEN = "main_screen"
+    const val AUTH_SCREEN = "auth_screen"
 
 }

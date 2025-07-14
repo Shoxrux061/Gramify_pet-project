@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import uz.shoxrux.core.ui.theme.Gramify_petprojectTheme
 import uz.shoxrux.core.ui.theme.LocalAppColors
-import uz.shoxrux.core.ui.theme.LocalAppTypography
 import uz.shoxrux.gramify.ui.navHost.AppNavHost
 
 @AndroidEntryPoint
@@ -28,7 +27,6 @@ class MainActivity : ComponentActivity() {
             Gramify_petprojectTheme {
 
                 val colors = LocalAppColors.current
-                val typography = LocalAppTypography.current
 
                 Scaffold(
                     contentWindowInsets = WindowInsets.statusBars,
@@ -39,7 +37,6 @@ class MainActivity : ComponentActivity() {
                     AppNavHost(paddingValues)
                 }
             }
-
         }
     }
 }

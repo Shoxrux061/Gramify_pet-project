@@ -37,6 +37,7 @@ import uz.shoxrux.core.ui.components.LoadingBar
 import uz.shoxrux.core.ui.components.OrDivider
 import uz.shoxrux.core.ui.theme.LocalAppColors
 import uz.shoxrux.core.ui.theme.LocalAppTypography
+import uz.shoxrux.core.utils.constants.NavRoutes
 
 @Composable
 fun SignInScreen(navController: NavController) {
@@ -57,7 +58,10 @@ fun SignInScreen(navController: NavController) {
 
     LaunchedEffect(isSuccess) {
         if (isSuccess) {
-
+            navController.navigate(NavRoutes.MAIN_SCREEN) {
+                popUpTo(0)
+                launchSingleTop = true
+            }
         }
     }
 

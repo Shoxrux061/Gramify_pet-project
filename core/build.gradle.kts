@@ -6,8 +6,6 @@ plugins {
     alias(libs.plugins.android.junit)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
-    alias(libs.plugins.compose.compiler)
-
 }
 
 android {
