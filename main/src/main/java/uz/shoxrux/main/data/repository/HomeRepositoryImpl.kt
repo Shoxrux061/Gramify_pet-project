@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import uz.shoxrux.core.handler.NetworkResult
 import uz.shoxrux.core.utils.constants.CollectionsConstants
-import uz.shoxrux.main.domain.model.PostModel
+import uz.shoxrux.main.domain.model.post.PostModel
 import uz.shoxrux.main.domain.reposiotry.HomeRepository
 import javax.inject.Inject
 

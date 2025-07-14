@@ -77,9 +77,9 @@ dependencies {
     //Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.adapter.rxjava3)
 }
