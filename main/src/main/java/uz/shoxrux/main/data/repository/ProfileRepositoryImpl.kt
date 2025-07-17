@@ -44,7 +44,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
             val posts: List<PostModel> = snapshotPosts.toObjects(PostModel::class.java)
 
-            Log.d("TAGRepo", "getProfileDataById: $posts")
+            Log.d("TAGRepo", "getProfileDataById: ${auth.uid}")
 
             val profileModel = ProfileModel(
                 id = userModel.id ?: "",

@@ -31,7 +31,7 @@ fun MainScreen() {
     }
 
     Scaffold(
-        modifier = Modifier.padding(0.dp).background(LocalAppColors.current.background),
+        modifier = Modifier.background(LocalAppColors.current.background),
         bottomBar = {
             MyBottomNavigation(
                 navController = navController

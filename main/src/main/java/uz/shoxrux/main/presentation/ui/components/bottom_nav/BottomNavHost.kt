@@ -3,6 +3,7 @@ package uz.shoxrux.main.presentation.ui.components.bottom_nav
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import uz.shoxrux.core.ui.theme.LocalAppColors
 import uz.shoxrux.core.utils.constants.NavRoutes
 import uz.shoxrux.main.presentation.screens.main.home.HomePage
 import uz.shoxrux.main.presentation.screens.main.home.HomeViewModel
+import uz.shoxrux.main.presentation.screens.main.post.PostPage
 import uz.shoxrux.main.presentation.screens.main.reels.ReelsPage
 import uz.shoxrux.main.presentation.screens.main.profile.ProfilePage
 import uz.shoxrux.main.presentation.screens.main.profile.ProfileViewModel
@@ -32,7 +35,8 @@ fun BottomNavHost(
     NavHost(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = paddingValues.calculateBottomPadding()),
+            .background(LocalAppColors.current.background)
+            .padding(paddingValues),
         navController = navController,
         startDestination = NavRoutes.ITEM_HOME_PAGE,
         enterTransition = {
@@ -48,7 +52,9 @@ fun BottomNavHost(
             fadeOut(animationSpec = tween(durationMillis = 250))
         }
     ) {
-        composable(route = NavRoutes.ITEM_HOME_PAGE) { HomePage(homeViewModel) }
+        composable(NavRoutes.ITEM_HOME_PAGE) {
+            HomePage(homeViewModel)
+        }
         composable(NavRoutes.ITEM_CHAT_PAGE) {
             Text("Chat")
         }
@@ -56,7 +62,7 @@ fun BottomNavHost(
             ReelsPage(reelsViewModel)
         }
         composable(NavRoutes.ITEM_POST_PAGE) {
-            Text("Post")
+            PostPage()
         }
         composable(NavRoutes.ITEM_PROFILE_PAGE) {
             ProfilePage(navController = navController, viewModel = profileViewModel)

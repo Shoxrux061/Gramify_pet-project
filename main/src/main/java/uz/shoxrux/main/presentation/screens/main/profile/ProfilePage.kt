@@ -52,6 +52,10 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
 
     val colors = LocalAppColors.current
 
+    LaunchedEffect(profileData) {
+        Log.d("TAGProfileData", "ProfilePage: $profileData")
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
 
         if (profileData != null) {
