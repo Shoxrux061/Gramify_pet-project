@@ -219,3 +219,68 @@ fun ErrorComponent(
         }
     }
 }
+
+@Composable
+fun AppLargeTextField(
+    modifier: Modifier = Modifier,
+    hint: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    isEmpty: Boolean
+) {
+    val colors = LocalAppColors.current
+    val typography = LocalAppTypography.current
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .background(colors.background),
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isFocused) {
+                colors.textTitle
+            } else if (isEmpty) {
+                colors.error1
+            } else {
+                colors.brandTertiary
+            }
+        ),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.elevatedCardElevation(0.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(colors.background)
+        ) {
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter),
+                value = value,
+                textStyle = typography.bodyMedium,
+                placeholder = {
+                    Text(
+                        text = hint,
+                        style = typography.hintText
+                    )
+                },
+                onValueChange = {
+                    onValueChange(it)
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = colors.background,
+                    unfocusedContainerColor = colors.background,
+                    focusedIndicatorColor = colors.transparent,
+                    unfocusedIndicatorColor = colors.transparent
+                ),
+                interactionSource = interactionSource
+            )
+        }
+    }
+
+}
