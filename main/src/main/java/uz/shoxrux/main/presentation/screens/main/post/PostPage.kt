@@ -37,6 +37,8 @@ import uz.shoxrux.core.ui.components.AppButton
 import uz.shoxrux.core.ui.components.AppLargeTextField
 import uz.shoxrux.core.ui.components.ErrorComponent
 import uz.shoxrux.core.ui.components.LoadingBar
+import uz.shoxrux.core.utils.bitmapToByteArray
+import uz.shoxrux.main.domain.model.post.PostModel
 
 @Composable
 fun PostPage(
@@ -143,7 +145,7 @@ fun PostPage(
             AppButton(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 onClick = {
-                    /*if (captionText.value.isNotBlank() && selectedImageUri.value != null) {
+                    if (captionText.value.isNotBlank() && selectedImageUri.value != null) {
                         val postModel = PostModel(
                             content = captionText.value
                         )
@@ -153,7 +155,7 @@ fun PostPage(
                             postModel = postModel,
                             byteArray = byteArray
                         )
-                    }*/
+                    }
                 },
                 text = "Post"
             )
