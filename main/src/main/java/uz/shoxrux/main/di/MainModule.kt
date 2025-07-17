@@ -10,9 +10,11 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import uz.shoxrux.main.data.network.ReelsService
 import uz.shoxrux.main.data.repository.HomeRepositoryImpl
+import uz.shoxrux.main.data.repository.PostRepositoryImpl
 import uz.shoxrux.main.data.repository.ProfileRepositoryImpl
 import uz.shoxrux.main.data.repository.ReelsRepositoryImpl
 import uz.shoxrux.main.domain.reposiotry.HomeRepository
+import uz.shoxrux.main.domain.reposiotry.PostRepository
 import uz.shoxrux.main.domain.reposiotry.ProfileRepository
 import uz.shoxrux.main.domain.reposiotry.ReelsRepository
 import javax.inject.Singleton
@@ -37,13 +39,26 @@ object MainModule {
     }
 
     @[Provides Singleton]
-    fun profileProfileRepository(
+    fun provideProfileRepository(
         firestore: FirebaseFirestore,
         firebaseStorage: FirebaseStorage,
         auth: FirebaseAuth
     ): ProfileRepository {
         return ProfileRepositoryImpl(
             firestore, firebaseStorage, auth
+        )
+    }
+
+    @[Provides Singleton]
+    fun providePostRepository(
+        firestore: FirebaseFirestore,
+        firebaseStorage: FirebaseStorage,
+        auth: FirebaseAuth
+    ): PostRepository {
+        return PostRepositoryImpl(
+            firestore,
+            firebaseStorage,
+            auth
         )
     }
 

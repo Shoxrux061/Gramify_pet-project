@@ -18,6 +18,7 @@ import uz.shoxrux.core.utils.constants.NavRoutes
 import uz.shoxrux.main.presentation.screens.main.home.HomePage
 import uz.shoxrux.main.presentation.screens.main.home.HomeViewModel
 import uz.shoxrux.main.presentation.screens.main.post.PostPage
+import uz.shoxrux.main.presentation.screens.main.post.PostViewModel
 import uz.shoxrux.main.presentation.screens.main.reels.ReelsPage
 import uz.shoxrux.main.presentation.screens.main.profile.ProfilePage
 import uz.shoxrux.main.presentation.screens.main.profile.ProfileViewModel
@@ -29,7 +30,8 @@ fun BottomNavHost(
     paddingValues: PaddingValues,
     homeViewModel: HomeViewModel,
     reelsViewModel: ReelsViewModel,
-    profileViewModel: ProfileViewModel
+    profileViewModel: ProfileViewModel,
+    postViewModel: PostViewModel
 ) {
 
     NavHost(
@@ -62,7 +64,7 @@ fun BottomNavHost(
             ReelsPage(reelsViewModel)
         }
         composable(NavRoutes.ITEM_POST_PAGE) {
-            PostPage()
+            PostPage(navController, postViewModel)
         }
         composable(NavRoutes.ITEM_PROFILE_PAGE) {
             ProfilePage(navController = navController, viewModel = profileViewModel)
