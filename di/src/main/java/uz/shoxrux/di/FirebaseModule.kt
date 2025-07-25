@@ -1,6 +1,7 @@
 package uz.shoxrux.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
@@ -24,7 +25,13 @@ object FirebaseModule {
     }
 
     @[Provides Singleton]
-    fun provideFirebaseStorage() : FirebaseStorage {
+    fun provideFirebaseStorage():FirebaseStorage{
         return FirebaseStorage.getInstance()
     }
+
+    @[Provides Singleton]
+    fun provideFirebaseRealtime(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance()
+    }
+
 }
