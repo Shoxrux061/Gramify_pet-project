@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import uz.shoxrux.core.ui.components.AppSearchBar
 import uz.shoxrux.core.ui.components.ErrorComponent
 import uz.shoxrux.core.ui.components.LoadingBar
 import uz.shoxrux.core.ui.theme.LocalAppColors
@@ -103,76 +104,4 @@ fun ChatsPage(navController: NavHostController, viewModel: ChatsViewModel) {
 
     }
 
-}
-
-@Composable
-fun AppSearchBar(
-    modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
-    hint: String
-) {
-
-    val colors = LocalAppColors.current
-    val typography = LocalAppTypography.current
-
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
-
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(55.dp),
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(
-            width = 1.dp,
-            color = if (isFocused) {
-                colors.textTitle
-            } else {
-                colors.brandPrimary
-            }
-        ),
-        colors = CardDefaults.cardColors(colors.background)
-    ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp)
-        ) {
-
-            Icon(
-                painter = painterResource(uz.shoxrux.core.R.drawable.ic_search),
-                tint = colors.brandPrimary,
-                contentDescription = null
-            )
-
-            Spacer(Modifier.width(10.dp))
-
-            TextField(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                value = value,
-                textStyle = typography.bodyMedium,
-                singleLine = true,
-                placeholder = {
-                    Text(
-                        text = hint,
-                        style = typography.hintText
-                    )
-                },
-                onValueChange = {
-                    onValueChange(it)
-                },
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = colors.background,
-                    unfocusedContainerColor = colors.background,
-                    focusedIndicatorColor = colors.transparent,
-                    unfocusedIndicatorColor = colors.transparent
-                ),
-                interactionSource = interactionSource
-            )
-
-        }
-    }
 }

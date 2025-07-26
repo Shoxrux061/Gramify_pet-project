@@ -4,7 +4,7 @@ import uz.shoxrux.main.domain.model.post.PostModel
 
 data class ProfileModel(
     val id: String = "",
-    val fullName: String = "",
+    val username: String = "",
     val bio: String = "",
     val avatarUrl: String = "",
     val profileImageUrl: String = "",

@@ -109,7 +109,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                         }
                         Text(
                             modifier = Modifier.padding(start = 20.dp),
-                            text = profileData.fullName,
+                            text = profileData.username,
                             style = TextStyle(
                                 fontFamily = FontFamily(Font(R.font.nunito_semi_bold)),
                                 color = colors.textHeadline,

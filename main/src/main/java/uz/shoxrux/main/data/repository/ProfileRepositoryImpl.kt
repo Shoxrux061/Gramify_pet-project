@@ -48,7 +48,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
             val profileModel = ProfileModel(
                 id = userModel.id ?: "",
-                fullName = userModel.fullName ?: "",
+                username = userModel.fullName ?: "",
                 bio = userModel.bio ?: "",
                 profileImageUrl = "",
                 posts = posts
@@ -90,7 +90,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
             val profileModel = ProfileModel(
                 id = userModel.id ?: "",
-                fullName = userModel.fullName ?: "",
+                username = userModel.fullName ?: "",
                 bio = userModel.bio ?: "",
                 profileImageUrl = "",
                 posts = posts
