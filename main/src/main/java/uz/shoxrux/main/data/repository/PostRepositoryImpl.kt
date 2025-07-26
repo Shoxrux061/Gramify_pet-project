@@ -2,6 +2,7 @@ package uz.shoxrux.main.data.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.Flow
@@ -46,10 +47,15 @@ class PostRepositoryImpl @Inject constructor(
                 authorId = userId
             )
 
-            firestore.collection(CollectionsConstants.POSTS)
+            val docRef = firestore.collection(CollectionsConstants.POSTS)
                 .document(postModel.id)
-                .set(updatedPost)
-                .await()
+
+            docRef.set(updatedPost).await()
+            docRef.update(
+                "postTime",
+                FieldValue.serverTimestamp()
+            )
+
 
             emit(NetworkResult.Success(true))
 

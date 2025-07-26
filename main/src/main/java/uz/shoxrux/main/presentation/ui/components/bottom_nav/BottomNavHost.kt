@@ -15,6 +15,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import uz.shoxrux.core.ui.theme.LocalAppColors
 import uz.shoxrux.core.utils.constants.NavRoutes
+import uz.shoxrux.main.presentation.screens.main.chats.ChatsPage
+import uz.shoxrux.main.presentation.screens.main.chats.ChatsViewModel
 import uz.shoxrux.main.presentation.screens.main.home.HomePage
 import uz.shoxrux.main.presentation.screens.main.home.HomeViewModel
 import uz.shoxrux.main.presentation.screens.main.post.PostPage
@@ -31,7 +33,8 @@ fun BottomNavHost(
     homeViewModel: HomeViewModel,
     reelsViewModel: ReelsViewModel,
     profileViewModel: ProfileViewModel,
-    postViewModel: PostViewModel
+    postViewModel: PostViewModel,
+    chatsViewModel: ChatsViewModel
 ) {
 
     NavHost(
@@ -58,7 +61,7 @@ fun BottomNavHost(
             HomePage(homeViewModel)
         }
         composable(NavRoutes.ITEM_CHAT_PAGE) {
-            Text("Chat")
+            ChatsPage(navController, chatsViewModel)
         }
         composable(NavRoutes.ITEM_REELS_PAGE) {
             ReelsPage(reelsViewModel)

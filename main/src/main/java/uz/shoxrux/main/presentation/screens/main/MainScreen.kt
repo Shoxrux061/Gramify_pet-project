@@ -2,15 +2,14 @@ package uz.shoxrux.main.presentation.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import uz.shoxrux.core.ui.theme.LocalAppColors
+import uz.shoxrux.main.presentation.screens.main.chats.ChatsViewModel
 import uz.shoxrux.main.presentation.screens.main.home.HomeViewModel
 import uz.shoxrux.main.presentation.screens.main.post.PostViewModel
 import uz.shoxrux.main.presentation.screens.main.profile.ProfileViewModel
@@ -27,9 +26,11 @@ fun MainScreen() {
     val reelsViewModel = hiltViewModel<ReelsViewModel>()
     val profileViewModel = hiltViewModel<ProfileViewModel>()
     val postViewModel = hiltViewModel<PostViewModel>()
+    val chatsViewModel = hiltViewModel<ChatsViewModel>()
 
     LaunchedEffect(Unit) {
         profileViewModel.getProfileData()
+        chatsViewModel.getChats()
     }
 
     Scaffold(
@@ -48,7 +49,8 @@ fun MainScreen() {
                 homeViewModel,
                 reelsViewModel,
                 profileViewModel,
-                postViewModel
+                postViewModel,
+                chatsViewModel
             )
         }
     }
