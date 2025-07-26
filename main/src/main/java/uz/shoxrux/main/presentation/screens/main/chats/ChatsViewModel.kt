@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import uz.shoxrux.core.handler.NetworkResult
-import uz.shoxrux.main.data.dto.chat.ChatModelDto
+import uz.shoxrux.main.domain.model.chats.ChatModel
 import uz.shoxrux.main.domain.reposiotry.ChatsRepository
 import javax.inject.Inject
 
@@ -16,8 +16,8 @@ class ChatsViewModel @Inject constructor(
     private val repository: ChatsRepository
 ) : ViewModel() {
 
-    private val _chats = MutableStateFlow<List<ChatModelDto>?>(emptyList())
-    val chats: StateFlow<List<ChatModelDto>?> = _chats
+    private val _chats = MutableStateFlow<List<ChatModel>?>(emptyList())
+    val chats: StateFlow<List<ChatModel>?> = _chats
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
