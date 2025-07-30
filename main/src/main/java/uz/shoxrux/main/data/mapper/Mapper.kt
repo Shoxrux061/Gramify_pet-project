@@ -1,11 +1,13 @@
 package uz.shoxrux.main.data.mapper
 
 import uz.shoxrux.main.data.dto.chat.ChatModelDto
+import uz.shoxrux.main.data.dto.profile.ProfileModelDto
 import uz.shoxrux.main.data.dto.wiki.OriginalDto
 import uz.shoxrux.main.data.dto.wiki.PageDto
 import uz.shoxrux.main.data.dto.wiki.QueryDto
 import uz.shoxrux.main.data.dto.wiki.WikiListResponseDto
 import uz.shoxrux.main.domain.model.chats.ChatModel
+import uz.shoxrux.main.domain.model.profile.ProfileModel
 import uz.shoxrux.main.domain.model.wiki.Original
 import uz.shoxrux.main.domain.model.wiki.Page
 import uz.shoxrux.main.domain.model.wiki.Query
@@ -52,6 +54,19 @@ fun ChatModelDto.toDomain(): ChatModel {
         type = this.type,
         lastMessage = this.lastMessage,
         lastMessageTimestamp = this.lastMessageTimestamp
+    )
+
+}
+
+fun ProfileModelDto.toDomain():ProfileModel{
+
+    return ProfileModel(
+        id = this.id,
+        username = this.username,
+        bio = this.bio,
+        profileImageUrl = this.profileImageUrl,
+        followersCount = this.followersCount,
+        followingCount = this.followingCount
     )
 
 }

@@ -68,11 +68,13 @@ object MainModule {
     @[Provides Singleton]
     fun provideChatsRepository(
         auth: FirebaseAuth,
-        database: FirebaseDatabase
+        database: FirebaseDatabase,
+        firestore: FirebaseFirestore
     ): ChatsRepository {
         return ChatsRepositoryImpl(
             auth,
-            database
+            database,
+            firestore
         )
     }
 

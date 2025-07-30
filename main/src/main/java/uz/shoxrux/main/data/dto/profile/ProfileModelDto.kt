@@ -1,13 +1,10 @@
-package uz.shoxrux.main.domain.model.profile
+package uz.shoxrux.main.data.dto.profile
 
-import uz.shoxrux.main.domain.model.post.PostModel
-
-data class ProfileModel(
+data class ProfileModelDto(
     val id: String = "",
     val username: String = "",
     val bio: String = "",
     val profileImageUrl: String = "",
-    val posts: List<PostModel> = emptyList(),
     val followingCount: Int = 0,
     val followersCount: Int = 0
 )

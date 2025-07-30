@@ -6,5 +6,4 @@ object CollectionsConstants {
     const val POSTS = "posts"
     const val IMAGES = "images"
     const val CHATS = "chats"
-
 }

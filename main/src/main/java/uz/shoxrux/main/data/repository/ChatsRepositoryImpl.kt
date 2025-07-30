@@ -49,21 +49,21 @@ class ChatsRepositoryImpl @Inject constructor(
                         }
                     })
             }
+            val result = chats.mapNotNull { dto ->
+                val otherUserId = dto.members.keys.firstOrNull { it != auth.uid } ?: return@mapNotNull null
 
-            chats.forEachIndexed { _, chatModelDto ->
-                val otherUserId = chatModelDto.members.keys.firstOrNull { it != auth.uid }
+                val userDoc = firestore.collection(CollectionsConstants.USERS)
+                    .document(otherUserId)
+                    .get()
+                    .await()
 
-                if (otherUserId != null) {
-                    val userDoc = firestore.collection(CollectionsConstants.USERS)
-                        .document(otherUserId)
-                        .get()
-                        .await()
+                val profile = userDoc.toObject(ProfileModel::class.java)
 
-                    val profile = userDoc.toObject(ProfileModel::class.java)
-                }
+                dto.toDomain().copy(
+                    partnerName = profile?.username ?: "",
+                    partnerAvatarUrl = profile?.profileImageUrl
+                )
             }
-
-            val result = chats.map { it.toDomain().copy() }
 
             emit(NetworkResult.Success(result))
 
@@ -71,4 +71,5 @@ class ChatsRepositoryImpl @Inject constructor(
             emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
+
 }

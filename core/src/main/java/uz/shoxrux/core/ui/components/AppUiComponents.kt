@@ -1,5 +1,6 @@
 package uz.shoxrux.core.ui.components
 
+import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -303,31 +304,30 @@ fun AppSearchBar(
     val isFocused by interactionSource.collectIsFocusedAsState()
 
     Card(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .height(55.dp),
-        shape = RoundedCornerShape(12.dp),
+            .background(colors.background),
         border = BorderStroke(
             width = 1.dp,
             color = if (isFocused) {
                 colors.textTitle
             } else {
-                colors.brandPrimary
+                colors.brandTertiary
             }
         ),
-        colors = CardDefaults.cardColors(colors.background)
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.elevatedCardElevation(0.dp)
     ) {
 
         Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp)
+            modifier = Modifier.padding(horizontal = 12.dp).background(colors.background).fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             Icon(
                 painter = painterResource(R.drawable.ic_search),
-                tint = colors.brandPrimary,
-                contentDescription = null
+                contentDescription = null,
+                tint = colors.brandPrimary
             )
 
             Spacer(Modifier.width(10.dp))
@@ -357,5 +357,6 @@ fun AppSearchBar(
             )
 
         }
+
     }
 }
