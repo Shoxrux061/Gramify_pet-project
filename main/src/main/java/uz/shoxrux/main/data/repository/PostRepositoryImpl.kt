@@ -1,8 +1,7 @@
 package uz.shoxrux.main.data.repository
 
-import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import uz.shoxrux.core.handler.NetworkResult
 import uz.shoxrux.core.utils.constants.CollectionsConstants
-import uz.shoxrux.main.domain.model.post.PostModel
+import uz.shoxrux.main.data.dto.post.PostDTO
 import uz.shoxrux.main.domain.reposiotry.PostRepository
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ class PostRepositoryImpl @Inject constructor(
 ) : PostRepository {
 
     override suspend fun post(
-        postModel: PostModel,
+        postModel: PostDTO,
         byteArray: ByteArray
     ): Flow<NetworkResult<Boolean>> = flow {
 
@@ -29,8 +28,7 @@ class PostRepositoryImpl @Inject constructor(
 
         try {
 
-            val userId = auth.uid
-            if (userId == null) {
+            val userId = auth.uid ?: run {
                 emit(NetworkResult.Error("Пользователь не авторизован"))
                 return@flow
             }
@@ -39,29 +37,24 @@ class PostRepositoryImpl @Inject constructor(
                 .child("${postModel.id}_post_image.jpeg")
 
             imageRef.putBytes(byteArray).await()
-
             val downloadUrl = imageRef.downloadUrl.await()
 
             val updatedPost = postModel.copy(
+                authorId = userId,
                 imageUrl = downloadUrl.toString(),
-                authorId = userId
+                postTime = Timestamp.now()
             )
 
-            val docRef = firestore.collection(CollectionsConstants.POSTS)
-                .document(postModel.id)
-
-            docRef.set(updatedPost).await()
-            docRef.update(
-                "postTime",
-                FieldValue.serverTimestamp()
-            )
-
+            firestore.collection(CollectionsConstants.POSTS)
+                .document(updatedPost.id)
+                .set(updatedPost)
+                .await()
 
             emit(NetworkResult.Success(true))
 
         } catch (e: Exception) {
-            Log.d("TAGPostrepo", "post: $e")
             emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
         }
+
     }
 }

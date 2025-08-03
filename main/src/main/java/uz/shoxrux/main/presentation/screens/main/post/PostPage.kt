@@ -1,5 +1,6 @@
 package uz.shoxrux.main.presentation.screens.main.post
 
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +54,7 @@ fun PostPage(
 
     val selectedImageUri = viewModel.selectedImageUri.collectAsState()
 
+    val isSuccess = viewModel.isSuccess.collectAsState().value
     val isLoading = viewModel.isLoading.collectAsState().value
     val error = viewModel.error.collectAsState().value
 
@@ -60,6 +63,13 @@ fun PostPage(
     ) {
         if (it == null) return@rememberLauncherForActivityResult
         viewModel.setUri(it)
+    }
+
+    LaunchedEffect(isSuccess) {
+        if (isSuccess) {
+            viewModel.clear()
+            Toast.makeText(navController.context, "Success", Toast.LENGTH_SHORT).show()
+        }
     }
 
     Box(
@@ -76,15 +86,6 @@ fun PostPage(
                     .fillMaxWidth()
                     .padding(vertical = 20.dp)
             ) {
-
-                IconButton(
-                    onClick = {}
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_close),
-                        contentDescription = null
-                    )
-                }
 
                 Text(
                     modifier = Modifier

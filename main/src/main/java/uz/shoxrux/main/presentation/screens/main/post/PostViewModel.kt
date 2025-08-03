@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import uz.shoxrux.core.handler.NetworkResult
+import uz.shoxrux.main.data.mapper.toData
 import uz.shoxrux.main.domain.model.post.PostModel
 import uz.shoxrux.main.domain.reposiotry.PostRepository
 import javax.inject.Inject
@@ -49,7 +50,7 @@ class PostViewModel @Inject constructor(
 
             try {
 
-                repository.post(postModel, byteArray).collect { result ->
+                repository.post(postModel.toData(), byteArray).collect { result ->
 
                     when (result) {
 
@@ -79,6 +80,11 @@ class PostViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun clear(){
+        _captionText.value = ""
+        _selectedImageUri.value = null
     }
 
 }

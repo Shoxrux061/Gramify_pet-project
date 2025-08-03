@@ -6,4 +6,6 @@ object CollectionsConstants {
     const val POSTS = "posts"
     const val IMAGES = "images"
     const val CHATS = "chats"
+    const val LIKES = "likes"
+    const val COMMENTS = "comments"
 }

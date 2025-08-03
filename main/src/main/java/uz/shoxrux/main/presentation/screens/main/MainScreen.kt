@@ -29,6 +29,7 @@ fun MainScreen() {
     val chatsViewModel = hiltViewModel<ChatsViewModel>()
 
     LaunchedEffect(Unit) {
+        homeViewModel.getPosts()
         profileViewModel.getProfileData()
         chatsViewModel.getChats()
     }

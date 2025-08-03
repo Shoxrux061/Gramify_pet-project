@@ -27,8 +27,8 @@ import javax.inject.Singleton
 object MainModule {
 
     @[Provides Singleton]
-    fun provideHomeRepository(firestore: FirebaseFirestore): HomeRepository {
-        return HomeRepositoryImpl(firestore)
+    fun provideHomeRepository(firestore: FirebaseFirestore, auth: FirebaseAuth): HomeRepository {
+        return HomeRepositoryImpl(firestore, auth)
     }
 
     @[Provides Singleton]
@@ -77,5 +77,4 @@ object MainModule {
             firestore
         )
     }
-
 }

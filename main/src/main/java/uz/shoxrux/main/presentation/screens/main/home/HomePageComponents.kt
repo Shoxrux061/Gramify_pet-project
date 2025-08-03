@@ -33,12 +33,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import uz.shoxrux.core.R
-import uz.shoxrux.core.ui.theme.AppTypography
 import uz.shoxrux.core.ui.theme.LocalAppColors
 
 @Composable
@@ -94,6 +92,7 @@ fun HomePageItem(
     commentCount: String,
     sharesCount: String,
     title: String,
+    isLiked: Boolean,
     postTime: String,
     onLikeClicked: () -> Unit,
     onCommentClicked: () -> Unit,
@@ -184,7 +183,8 @@ fun HomePageItem(
                         }
                         .padding(8.dp),
                     tint = colors.textTitle,
-                    painter = painterResource(R.drawable.ic_like),
+                    painter = if (isLiked)
+                        painterResource(R.drawable.ic_liked) else painterResource(R.drawable.ic_not_liked),
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(10.dp))

@@ -2,10 +2,10 @@ package uz.shoxrux.main.domain.reposiotry
 
 import kotlinx.coroutines.flow.Flow
 import uz.shoxrux.core.handler.NetworkResult
-import uz.shoxrux.main.domain.model.post.PostModel
+import uz.shoxrux.main.data.dto.post.PostDTO
 
 interface PostRepository {
 
-    suspend fun post(postModel: PostModel, byteArray: ByteArray) : Flow<NetworkResult<Boolean>>
+    suspend fun post(postModel: PostDTO, byteArray: ByteArray) : Flow<NetworkResult<Boolean>>
 
 }

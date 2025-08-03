@@ -1,6 +1,5 @@
 package uz.shoxrux.core.ui.components
 
-import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -320,7 +319,10 @@ fun AppSearchBar(
     ) {
 
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp).background(colors.background).fillMaxWidth(),
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .background(colors.background)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -355,8 +357,6 @@ fun AppSearchBar(
                 ),
                 interactionSource = interactionSource
             )
-
         }
-
     }
 }

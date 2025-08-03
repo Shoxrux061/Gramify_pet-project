@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -69,7 +68,7 @@ fun ReelsItem(page: Page?) {
                     }
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_like),
+                        painter = painterResource(R.drawable.ic_not_liked),
                         contentDescription = null,
                         tint = colors.textHeadline
                     )
