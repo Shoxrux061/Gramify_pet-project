@@ -52,6 +52,10 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
 
     val colors = LocalAppColors.current
 
+    LaunchedEffect(profileData) {
+        Log.d("TAGProfileData", "ProfilePage: $profileData")
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
 
         if (profileData != null) {
@@ -95,7 +99,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                         ) {
                             Image(
                                 painter = painterResource(R.drawable.person_placholder),
-                                contentDescription = "",
+                                contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(1.dp)
@@ -105,7 +109,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                         }
                         Text(
                             modifier = Modifier.padding(start = 20.dp),
-                            text = profileData.fullName,
+                            text = profileData.username,
                             style = TextStyle(
                                 fontFamily = FontFamily(Font(R.font.nunito_semi_bold)),
                                 color = colors.textHeadline,
@@ -118,7 +122,9 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                 item {
                     Text(
                         modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
-                        text = profileData.bio,
+                        text = profileData.bio.ifBlank {
+                            "No bio added"
+                        },
                         style = TextStyle(
                             fontFamily = FontFamily(Font(R.font.nunito_medium)),
                             color = colors.textBody,
@@ -157,7 +163,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                                     }, style = TextStyle(
                                         fontFamily = FontFamily(Font(R.font.nunito_bold)),
                                         color = colors.textBody,
-                                        fontSize = 18.sp
+                                        fontSize = 16.sp
                                     )
                                 )
                                 Text(
@@ -170,7 +176,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                                     style = TextStyle(
                                         fontFamily = FontFamily(Font(R.font.nunito_bold)),
                                         color = colors.textBody,
-                                        fontSize = 18.sp
+                                        fontSize = 14.sp
                                     )
                                 )
                             }
@@ -180,7 +186,7 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                                     modifier = Modifier
                                         .fillMaxHeight()
                                         .width(1.dp)
-                                        .background(Color.Black)
+                                        .background(colors.textBody)
                                 )
                             }
                         }
@@ -188,16 +194,28 @@ fun ProfilePage(navController: NavController, viewModel: ProfileViewModel) {
                 }
 
                 item {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(3),
-                        userScrollEnabled = false,
-                        modifier = Modifier
-                            .heightIn(max = 10000.dp)
-                            .padding(0.dp)
-                    ) {
-                        items(profileData.posts.size) {
-                            PostItem(profileData.posts[it].imageUrl)
+                    if (profileData.posts.isNotEmpty()) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(3),
+                            userScrollEnabled = false,
+                            modifier = Modifier
+                                .heightIn(max = 10000.dp)
+                                .padding(0.dp)
+                        ) {
+                            items(profileData.posts.size) {
+                                PostItem(profileData.posts[it].imageUrl)
+                            }
                         }
+                    }else{
+                        Text(
+                            modifier = Modifier.align(Alignment.Center),
+                            text = "You have no publications",
+                            style = TextStyle(
+                                fontFamily = FontFamily(Font(R.font.nunito_medium)),
+                                fontSize = 18.sp,
+                                color = colors.textHeadline
+                            )
+                        )
                     }
                 }
 

@@ -31,6 +31,8 @@ class ProfileRepositoryImpl @Inject constructor(
                     .await()
             val userModel = snapshotUser.toObject(UserModel::class.java)
 
+            Log.d("TAGRepo", "getProfileDataById: $userModel")
+
             if (userModel == null) {
                 emit(NetworkResult.Error("User not found"))
                 return@flow
@@ -44,11 +46,9 @@ class ProfileRepositoryImpl @Inject constructor(
 
             val posts: List<PostModel> = snapshotPosts.toObjects(PostModel::class.java)
 
-            Log.d("TAGRepo", "getProfileDataById: $posts")
-
             val profileModel = ProfileModel(
                 id = userModel.id ?: "",
-                fullName = userModel.fullName ?: "",
+                username = userModel.username ?: "",
                 bio = userModel.bio ?: "",
                 profileImageUrl = "",
                 posts = posts
@@ -86,11 +86,9 @@ class ProfileRepositoryImpl @Inject constructor(
 
             val posts: List<PostModel> = snapshotPosts.toObjects(PostModel::class.java)
 
-            Log.d("TAGRepo", "getProfileDataById: $posts")
-
             val profileModel = ProfileModel(
                 id = userModel.id ?: "",
-                fullName = userModel.fullName ?: "",
+                username = userModel.username ?: "",
                 bio = userModel.bio ?: "",
                 profileImageUrl = "",
                 posts = posts
@@ -113,4 +111,5 @@ class ProfileRepositoryImpl @Inject constructor(
             emit(NetworkResult.Error("Not Authorized"))
         }
     }
+
 }

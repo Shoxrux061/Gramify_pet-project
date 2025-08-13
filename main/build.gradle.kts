@@ -39,6 +39,7 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    implementation(project(":di"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -75,9 +76,11 @@ dependencies {
     implementation(libs.compose.input.mask)
 
     //Firebase
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.database)
 
     //Retrofit
     implementation(libs.retrofit)

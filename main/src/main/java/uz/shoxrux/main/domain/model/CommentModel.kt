@@ -1,11 +1,11 @@
 package uz.shoxrux.main.domain.model
 
 import com.google.firebase.Timestamp
-import java.util.UUID
 
 data class CommentModel(
+    val postId: String = "",
     val content: String = "",
-    val commentAuthor: String = "",
-    val postedTime: Timestamp = Timestamp.now(),
-    val id: String = UUID.randomUUID().toString()
+    val authorName: String = "",
+    val authorAvatarUrl: String? = "",
+    val postedTime: Timestamp = Timestamp.now()
 )
