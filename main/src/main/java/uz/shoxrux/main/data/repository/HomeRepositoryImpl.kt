@@ -10,6 +10,7 @@ import uz.shoxrux.core.handler.NetworkResult
 import uz.shoxrux.core.utils.constants.CollectionsConstants
 import uz.shoxrux.main.data.dto.like.LikeModel
 import uz.shoxrux.main.data.dto.post.PostDTO
+import uz.shoxrux.main.domain.model.CommentModel
 import uz.shoxrux.main.domain.model.post.PostModel
 import uz.shoxrux.main.domain.reposiotry.HomeRepository
 import javax.inject.Inject
@@ -96,4 +97,39 @@ class HomeRepositoryImpl @Inject constructor(
             emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
+
+    override suspend fun getComments(id: String): Flow<NetworkResult<List<CommentModel>>> = flow {
+
+        emit(NetworkResult.Loading())
+
+        try {
+
+            val snapshot = firestore.collection(CollectionsConstants.COMMENTS)
+                .whereEqualTo("postId", id)
+                .get()
+                .await()
+
+            val comments = snapshot.toObjects(CommentModel::class.java)
+            emit(NetworkResult.Success(comments))
+
+        } catch (e: Exception) {
+            emit(NetworkResult.Error(e.localizedMessage))
+        }
+
+    }
+
+    override suspend fun sendComment(comment: CommentModel): Flow<NetworkResult<Boolean>> = flow {
+        emit(NetworkResult.Loading())
+
+        try {
+            firestore.collection(CollectionsConstants.COMMENTS)
+                .add(comment)
+                .await()
+
+            emit(NetworkResult.Success(true))
+        } catch (e: Exception) {
+            emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
+        }
+    }
+
 }

@@ -1,6 +1,5 @@
 package uz.shoxrux.main.presentation.screens.main.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -16,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -35,15 +36,12 @@ import uz.shoxrux.core.ui.components.LoadingBar
 import uz.shoxrux.core.utils.toReadableTime
 import uz.shoxrux.main.data.dto.like.LikeModel
 import uz.shoxrux.main.data.dto.like.LikeType
+import uz.shoxrux.main.domain.model.CommentModel
 
 @Composable
 fun HomePage(viewModel: HomeViewModel) {
-
-    val posts = viewModel.posts.collectAsState().value
-    val error = viewModel.error.collectAsState().value
     val colors = LocalAppColors.current
-    val isLoading = viewModel.isLoading.collectAsState().value
-
+    val state = viewModel.homeUiState.collectAsState().value
     val lifecycleOwner = LocalLifecycleOwner.current
 
     DisposableEffect(lifecycleOwner) {
@@ -52,7 +50,6 @@ fun HomePage(viewModel: HomeViewModel) {
                 viewModel.syncLikes()
             }
         }
-
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
@@ -63,9 +60,7 @@ fun HomePage(viewModel: HomeViewModel) {
             .background(colors.background)
     ) {
         Scaffold(
-            modifier = Modifier
-                .padding(0.dp)
-                .background(colors.background),
+            modifier = Modifier.background(colors.background),
             topBar = {
                 Row(
                     modifier = Modifier
@@ -74,7 +69,6 @@ fun HomePage(viewModel: HomeViewModel) {
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-
                     Text(
                         text = "GRAMIFY",
                         style = TextStyle(
@@ -84,7 +78,6 @@ fun HomePage(viewModel: HomeViewModel) {
                         )
                     )
                     Spacer(Modifier.weight(1f))
-
                     IconButton(onClick = {}) {
                         Icon(
                             painter = painterResource(R.drawable.ic_search),
@@ -99,7 +92,6 @@ fun HomePage(viewModel: HomeViewModel) {
                             tint = colors.brandPrimary
                         )
                     }
-
                 }
             }
         ) { innerPadding ->
@@ -109,57 +101,43 @@ fun HomePage(viewModel: HomeViewModel) {
                     .background(colors.background)
                     .fillMaxSize()
             ) {
-
                 item {
-                    if (error != null) {
-                        ErrorComponent(error)
-                    }
+                    state.error?.let { ErrorComponent(it) }
                 }
 
-                item {
-                    StoryItem(
-                        modifier = Modifier.padding(16.dp)
-                    )
-                }
+                item { StoryItem(modifier = Modifier.padding(16.dp)) }
 
-                items(posts.size) { index ->
-                    Log.d("TAGPostTime", "HomePage: ${posts[index].postTime}")
+                items(state.posts.size) { index ->
+                    val post = state.posts[index]
                     HomePageItem(
-                        imageUrl = posts[index].imageUrl,
-                        likeCount = posts[index].likeCount.toString(),
+                        imageUrl = post.imageUrl,
+                        likeCount = post.likeCount.toString(),
                         sharesCount = "0",
                         commentCount = "0",
-                        onCommentClicked = {},
+                        title = post.content,
+                        postTime = post.postTime?.toReadableTime() ?: "",
+                        isLiked = post.isLiked,
+                        onCommentClicked = { viewModel.openComments(post.id) },
                         onLikeClicked = {
-                            if (!posts[index].isLiked) {
-                                viewModel.saveLocalLikes(
-                                    like = LikeModel(
-                                        likedPost = posts[index].id,
-                                        type = LikeType.Post
-                                    )
-                                )
+                            if (!post.isLiked) {
+                                viewModel.saveLocalLikes(LikeModel(post.id, type = LikeType.Post))
                             } else {
                                 viewModel.saveLocalLikes(
                                     unlike = LikeModel(
-                                        likedPost = posts[index].id,
+                                        post.id,
                                         type = LikeType.Post
                                     )
                                 )
                             }
-                            viewModel.toggleLike(posts[index].id)
+                            viewModel.toggleLike(post.id)
                         },
-                        onShareClicked = {},
-                        title = posts[index].content,
-                        postTime = posts[index].postTime?.toReadableTime() ?: "",
-                        isLiked = posts[index].isLiked
+                        onShareClicked = {}
                     )
                 }
 
                 item {
-                    if (posts.isEmpty() && !isLoading) {
-                        Box(
-                            modifier = Modifier.fillMaxSize()
-                        ) {
+                    if (state.posts.isEmpty() && !state.isLoading) {
+                        Box(Modifier.fillMaxSize()) {
                             Text(
                                 text = "No posts",
                                 style = TextStyle(
@@ -175,10 +153,24 @@ fun HomePage(viewModel: HomeViewModel) {
             }
         }
 
-        if (isLoading) {
-            LoadingBar()
-        }
+        if (state.isLoading) LoadingBar()
+
+        CommentBottomSheet(
+            state = state.commentState,
+            onDismiss = { viewModel.closeComments() },
+            onValueChange = { viewModel.onCommentValueChange(it) },
+            onSend = {
+                viewModel.sendComment(
+                    CommentModel(
+                        content = state.commentState.commentInput,
+                        postId = state.commentState.postId
+                    )
+                )
+            }
+        )
+
     }
 }
+
 
 fun Timestamp.toReadableTime(): String = this.seconds.toReadableTime()

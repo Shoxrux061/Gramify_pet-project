@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.snapshots
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -66,6 +65,7 @@ class ChatsRepositoryImpl @Inject constructor(
             }
 
             emit(NetworkResult.Success(result))
+            
 
         } catch (e: Exception) {
             emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))

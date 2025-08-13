@@ -1,8 +1,8 @@
-package uz.shoxrux.main.domain.model
+package uz.shoxrux.main.data.dto.comment
 
 import com.google.firebase.Timestamp
 
-data class CommentModel(
+data class CommentDTO(
     val postId: String = "",
     val content: String = "",
     val authorName: String = "",

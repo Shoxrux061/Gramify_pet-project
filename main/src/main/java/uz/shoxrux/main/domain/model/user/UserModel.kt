@@ -5,7 +5,7 @@ data class UserModel(
     var id: String? = "",
     var email: String? = "",
     var password: String? = "",
-    var fullName: String? = "",
+    var username: String? = "",
     var bio: String? = "",
     var gender: Int? = 1,
     var phoneNumber: String? = "",

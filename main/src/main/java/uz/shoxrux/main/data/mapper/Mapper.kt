@@ -2,12 +2,14 @@ package uz.shoxrux.main.data.mapper
 
 import com.google.firebase.Timestamp
 import uz.shoxrux.main.data.dto.chat.ChatModelDto
+import uz.shoxrux.main.data.dto.comment.CommentDTO
 import uz.shoxrux.main.data.dto.post.PostDTO
 import uz.shoxrux.main.data.dto.profile.ProfileModelDto
 import uz.shoxrux.main.data.dto.wiki.OriginalDto
 import uz.shoxrux.main.data.dto.wiki.PageDto
 import uz.shoxrux.main.data.dto.wiki.QueryDto
 import uz.shoxrux.main.data.dto.wiki.WikiListResponseDto
+import uz.shoxrux.main.domain.model.CommentModel
 import uz.shoxrux.main.domain.model.chats.ChatModel
 import uz.shoxrux.main.domain.model.post.PostModel
 import uz.shoxrux.main.domain.model.profile.ProfileModel
