@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.compose.input.mask)
 
     //Firebase
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
