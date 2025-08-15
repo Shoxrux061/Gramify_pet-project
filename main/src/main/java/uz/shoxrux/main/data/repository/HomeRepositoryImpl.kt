@@ -123,7 +123,7 @@ class HomeRepositoryImpl @Inject constructor(
 
         try {
             firestore.collection(CollectionsConstants.COMMENTS)
-                .add(comment)
+                .add(comment.copy(authorId = auth.uid ?: ""))
                 .await()
 
             emit(NetworkResult.Success(true))

@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import uz.shoxrux.core.handler.NetworkResult
@@ -21,16 +22,17 @@ class ProfileRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth
 ) : ProfileRepository {
 
-    override suspend fun getSelfProfile(): Flow<NetworkResult<ProfileModel>> = flow {
+    override suspend fun getSelfProfile(): Flow<NetworkResult<ProfileModel>> =
+        flow {
+            emit(NetworkResult.Loading())
 
-        emit(NetworkResult.Loading())
+            val snapshotUser = firestore
+                .collection(CollectionsConstants.USERS)
+                .document(auth.uid ?: "")
+                .get()
+                .await()
 
-        try {
-            val snapshotUser =
-                firestore.collection(CollectionsConstants.USERS).document(auth.uid ?: "").get()
-                    .await()
             val userModel = snapshotUser.toObject(UserModel::class.java)
-
             Log.d("TAGRepo", "getProfileDataById: $userModel")
 
             if (userModel == null) {
@@ -39,10 +41,9 @@ class ProfileRepositoryImpl @Inject constructor(
             }
 
             val snapshotPosts = firestore.collection(CollectionsConstants.POSTS)
-                .whereEqualTo(
-                    "authorId", auth.uid
-                )
-                .get().await()
+                .whereEqualTo("authorId", auth.uid)
+                .get()
+                .await()
 
             val posts: List<PostModel> = snapshotPosts.toObjects(PostModel::class.java)
 
@@ -55,11 +56,9 @@ class ProfileRepositoryImpl @Inject constructor(
             )
 
             emit(NetworkResult.Success(profileModel))
-
-        } catch (e: Exception) {
-            emit(NetworkResult.Error(e.localizedMessage))
+        }.catch { e ->
+            emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
         }
-    }
 
     override suspend fun getProfileDataById(id: String): Flow<NetworkResult<ProfileModel>> = flow {
 

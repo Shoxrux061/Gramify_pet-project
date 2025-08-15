@@ -1,8 +1,12 @@
 package uz.shoxrux.main.domain.use_case
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
 import uz.shoxrux.core.handler.NetworkResult
 import uz.shoxrux.main.data.dto.like.LikeModel
 import uz.shoxrux.main.domain.model.CommentModel
@@ -24,34 +28,41 @@ class HomeUseCase @Inject constructor(
         return homeRepository.getComments(postId)
     }
 
-    suspend fun sendComment(comment: CommentModel): Flow<NetworkResult<Boolean>> = flow {
+    fun sendComment(comment: CommentModel): Flow<NetworkResult<Boolean>> = flow {
+        Log.d("TAGCommentResult", "=== sendComment() START ===")
         emit(NetworkResult.Loading())
+
         try {
-            val profileResult =
-                profileRepository.getSelfProfile().first { it !is NetworkResult.Loading }
+
+            val profileResult = profileRepository.getSelfProfile()
+                .first { it !is NetworkResult.Loading }
 
             val profile = when (profileResult) {
-                is NetworkResult.Success -> profileResult.data
+                is NetworkResult.Success -> {
+                    profileResult.data
+                }
+
                 is NetworkResult.Error -> {
                     emit(NetworkResult.Error("Не удалось загрузить профиль"))
                     return@flow
                 }
 
-                else -> null
-            } ?: return@flow
-
-            val commentWithAuthor = comment.copy(
-                authorName = profile.username,
-            )
-
-            homeRepository.sendComment(commentWithAuthor).collect { result ->
-                emit(result)
+                else -> {
+                    emit(NetworkResult.Error("Неизвестная ошибка при загрузке профиля"))
+                    return@flow
+                }
             }
+
+            val commentWithAuthor = comment.copy(authorName = profile?.username ?: "")
+            emitAll(
+                homeRepository.sendComment(commentWithAuthor)
+            )
 
         } catch (e: Exception) {
             emit(NetworkResult.Error(e.localizedMessage ?: "Unknown error"))
         }
     }
+
 
     suspend fun syncLikes(
         likes: List<LikeModel>,

@@ -1,5 +1,6 @@
 package uz.shoxrux.main.presentation.screens.main.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,7 @@ import uz.shoxrux.main.domain.model.CommentModel
 fun HomePage(viewModel: HomeViewModel) {
     val colors = LocalAppColors.current
     val state = viewModel.homeUiState.collectAsState().value
+
     val lifecycleOwner = LocalLifecycleOwner.current
 
     DisposableEffect(lifecycleOwner) {
@@ -77,7 +79,9 @@ fun HomePage(viewModel: HomeViewModel) {
                             fontSize = 20.sp
                         )
                     )
+
                     Spacer(Modifier.weight(1f))
+
                     IconButton(onClick = {}) {
                         Icon(
                             painter = painterResource(R.drawable.ic_search),
@@ -113,7 +117,7 @@ fun HomePage(viewModel: HomeViewModel) {
                         imageUrl = post.imageUrl,
                         likeCount = post.likeCount.toString(),
                         sharesCount = "0",
-                        commentCount = "0",
+                        commentCount = post.commentCount.toString(),
                         title = post.content,
                         postTime = post.postTime?.toReadableTime() ?: "",
                         isLiked = post.isLiked,
@@ -155,6 +159,10 @@ fun HomePage(viewModel: HomeViewModel) {
 
         if (state.isLoading) LoadingBar()
 
+        if (state.error != null) ErrorComponent(state.error)
+
+        Log.d("TAGComments", "HomePage: ${state.error}")
+
         CommentBottomSheet(
             state = state.commentState,
             onDismiss = { viewModel.closeComments() },
@@ -171,6 +179,5 @@ fun HomePage(viewModel: HomeViewModel) {
 
     }
 }
-
 
 fun Timestamp.toReadableTime(): String = this.seconds.toReadableTime()
